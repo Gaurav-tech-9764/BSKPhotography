@@ -21,42 +21,45 @@
         <div class="row g-5">
             <!-- Contact Info -->
             <div class="col-lg-5" data-aos="fade-right">
-                <h3 style="font-weight: 700; letter-spacing: 2px; margin-bottom: 30px; color: #fff;">Get In Touch</h3>
-                <p style="color: #aaa;" class="mb-4">Have a question or want to book a session? Reach out to us and we'll get back to you as soon as possible.</p>
+                <div class="section-title mb-4">
+                    <span class="subtitle">Reach Out</span>
+                    <h2>Get In Touch</h2>
+                    <p>Have a question or want to book a session? We'd love to hear from you.</p>
+                </div>
 
                 <div class="mb-4">
                     @if(!empty($siteSettings['site_email']))
-                        <div class="d-flex align-items-start gap-3 mb-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-circle" style="width:45px;height:45px;background:rgba(212,165,116,0.15);color:#d4a574;flex-shrink:0;">
-                                <i class="bi bi-envelope"></i>
+                        <div class="d-flex align-items-start gap-3 mb-4 p-3" style="background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width:48px;height:48px;background:var(--accent-subtle);color:var(--accent);">
+                                <i class="bi bi-envelope fs-5"></i>
                             </div>
                             <div>
-                                <h6 class="mb-1" style="color: #fff;">Email</h6>
-                                <p class="mb-0" style="color: #bbb;">{{ $siteSettings['site_email'] }}</p>
+                                <h6 class="mb-1" style="color: var(--text-dark); font-family: var(--font-accent); font-weight: 600;">Email</h6>
+                                <p class="mb-0" style="color: var(--text-body);">{{ $siteSettings['site_email'] }}</p>
                             </div>
                         </div>
                     @endif
 
                     @if(!empty($siteSettings['site_phone']))
-                        <div class="d-flex align-items-start gap-3 mb-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-circle" style="width:45px;height:45px;background:rgba(212,165,116,0.15);color:#d4a574;flex-shrink:0;">
-                                <i class="bi bi-phone"></i>
+                        <div class="d-flex align-items-start gap-3 mb-4 p-3" style="background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width:48px;height:48px;background:var(--accent-subtle);color:var(--accent);">
+                                <i class="bi bi-phone fs-5"></i>
                             </div>
                             <div>
-                                <h6 class="mb-1" style="color: #fff;">Phone</h6>
-                                <p class="mb-0" style="color: #bbb;">{{ $siteSettings['site_phone'] }}</p>
+                                <h6 class="mb-1" style="color: var(--text-dark); font-family: var(--font-accent); font-weight: 600;">Phone</h6>
+                                <p class="mb-0" style="color: var(--text-body);">{{ $siteSettings['site_phone'] }}</p>
                             </div>
                         </div>
                     @endif
 
                     @if(!empty($siteSettings['site_address']))
-                        <div class="d-flex align-items-start gap-3 mb-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-circle" style="width:45px;height:45px;background:rgba(212,165,116,0.15);color:#d4a574;flex-shrink:0;">
-                                <i class="bi bi-geo-alt"></i>
+                        <div class="d-flex align-items-start gap-3 mb-4 p-3" style="background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width:48px;height:48px;background:var(--accent-subtle);color:var(--accent);">
+                                <i class="bi bi-geo-alt fs-5"></i>
                             </div>
                             <div>
-                                <h6 class="mb-1" style="color: #fff;">Address</h6>
-                                <p class="mb-0" style="color: #bbb;">{{ $siteSettings['site_address'] }}</p>
+                                <h6 class="mb-1" style="color: var(--text-dark); font-family: var(--font-accent); font-weight: 600;">Address</h6>
+                                <p class="mb-0" style="color: var(--text-body);">{{ $siteSettings['site_address'] }}</p>
                             </div>
                         </div>
                     @endif
@@ -64,70 +67,82 @@
 
                 <!-- Social Links -->
                 @if($socialLinks->count())
-                    <h6 class="mb-3" style="color: #d4a574;">Follow Us</h6>
-                    <div class="footer-social">
-                        @foreach($socialLinks as $link)
-                            <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer" title="{{ $link->platform }}">
-                                <i class="bi bi-{{ $link->icon }}"></i>
-                            </a>
-                        @endforeach
+                    <div>
+                        <h6 class="mb-3" style="color: var(--accent); font-family: var(--font-accent); font-weight: 600; letter-spacing: 0.5px;">Follow Us</h6>
+                        <div class="d-flex gap-2">
+                            @foreach($socialLinks as $link)
+                                <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer" title="{{ $link->platform }}"
+                                   style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--border-light);color:var(--text-body);transition:all 0.3s;font-size:0.9rem;">
+                                    <i class="bi bi-{{ $link->icon }}"></i>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
             </div>
 
             <!-- Contact Form -->
             <div class="col-lg-7" data-aos="fade-left">
-                @if(session('success'))
-                    <div class="alert alert-success d-flex align-items-center" style="background:rgba(40,167,69,0.15);border-color:rgba(40,167,69,0.3);color:#5cb85c;border-radius:12px;">
-                        <i class="bi bi-check-circle-fill me-3 fs-4"></i>
-                        <div>{{ session('success') }}</div>
-                    </div>
-                @endif
+                <div class="p-4 p-lg-5" style="background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-lg);">
+                    @if(session('success'))
+                        <div class="alert d-flex align-items-center mb-4" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:#16a34a;border-radius:var(--radius-md);">
+                            <i class="bi bi-check-circle-fill me-3 fs-5"></i>
+                            <div>{{ session('success') }}</div>
+                        </div>
+                    @endif
 
-                @if(session('error'))
-                    <div class="alert alert-danger" style="background:rgba(220,53,69,0.15);border-color:rgba(220,53,69,0.3);color:#ff6b6b;border-radius:12px;">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                    @if(session('error'))
+                        <div class="alert mb-4" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#dc2626;border-radius:var(--radius-md);">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
-                <form action="{{ route('contact.store') }}" method="POST">
-                    @csrf
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label small" style="color: #ccc;">Your Name *</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required
-                                style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);color:#fff;padding:12px;border-radius:10px;">
-                            @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <h5 style="font-family: var(--font-display); color: var(--text-dark); margin-bottom: 24px;">Send Us a Message</h5>
+
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-medium" style="color: var(--text-dark);">Your Name *</label>
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required
+                                    style="background:var(--bg-primary);border-color:var(--border-light);color:var(--text-dark);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.92rem;"
+                                    placeholder="John Doe">
+                                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-medium" style="color: var(--text-dark);">Your Email *</label>
+                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required
+                                    style="background:var(--bg-primary);border-color:var(--border-light);color:var(--text-dark);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.92rem;"
+                                    placeholder="john@example.com">
+                                @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-medium" style="color: var(--text-dark);">Phone</label>
+                                <input type="text" name="phone" class="form-control" value="{{ old('phone') }}"
+                                    style="background:var(--bg-primary);border-color:var(--border-light);color:var(--text-dark);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.92rem;"
+                                    placeholder="+91 98765 43210">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-medium" style="color: var(--text-dark);">Subject</label>
+                                <input type="text" name="subject" class="form-control" value="{{ old('subject') }}"
+                                    style="background:var(--bg-primary);border-color:var(--border-light);color:var(--text-dark);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.92rem;"
+                                    placeholder="Wedding Photography">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-medium" style="color: var(--text-dark);">Message *</label>
+                                <textarea name="message" rows="5" class="form-control @error('message') is-invalid @enderror" required
+                                    style="background:var(--bg-primary);border-color:var(--border-light);color:var(--text-dark);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.92rem;"
+                                    placeholder="Tell us about your vision...">{{ old('message') }}</textarea>
+                                @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-accent w-100 w-md-auto">
+                                    <i class="bi bi-send me-2"></i>Send Message
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label small" style="color: #ccc;">Your Email *</label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required
-                                style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);color:#fff;padding:12px;border-radius:10px;">
-                            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small" style="color: #ccc;">Phone</label>
-                            <input type="text" name="phone" class="form-control" value="{{ old('phone') }}"
-                                style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);color:#fff;padding:12px;border-radius:10px;">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small" style="color: #ccc;">Subject</label>
-                            <input type="text" name="subject" class="form-control" value="{{ old('subject') }}"
-                                style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);color:#fff;padding:12px;border-radius:10px;">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label small" style="color: #ccc;">Message *</label>
-                            <textarea name="message" rows="5" class="form-control @error('message') is-invalid @enderror" required
-                                style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);color:#fff;padding:12px;border-radius:10px;">{{ old('message') }}</textarea>
-                            @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-gold w-100 w-md-auto">
-                                <i class="bi bi-send me-2"></i>Send Message
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

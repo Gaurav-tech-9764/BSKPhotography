@@ -21,16 +21,20 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
-                <div class="d-flex justify-content-center gap-4 mb-4">
+                <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
                     @if($event->event_date)
-                        <span style="color: #d4a574;"><i class="bi bi-calendar3 me-2"></i>{{ $event->event_date->format('F d, Y') }}</span>
+                        <span class="d-inline-flex align-items-center gap-2" style="background: var(--accent-subtle); color: var(--accent); padding: 8px 20px; border-radius: 50px; font-size: 0.88rem; font-weight: 600;">
+                            <i class="bi bi-calendar3"></i> {{ $event->event_date->format('F d, Y') }}
+                        </span>
                     @endif
                     @if($event->location)
-                        <span class="text-muted"><i class="bi bi-geo-alt me-2"></i>{{ $event->location }}</span>
+                        <span class="d-inline-flex align-items-center gap-2" style="background: var(--bg-cream); color: var(--text-body); padding: 8px 20px; border-radius: 50px; font-size: 0.88rem;">
+                            <i class="bi bi-geo-alt"></i> {{ $event->location }}
+                        </span>
                     @endif
                 </div>
                 @if($event->description)
-                    <p class="text-muted">{!! nl2br(e($event->description)) !!}</p>
+                    <p style="color: var(--text-body); line-height: 1.8; max-width: 700px; margin: 0 auto;">{!! nl2br(e($event->description)) !!}</p>
                 @endif
             </div>
         </div>
@@ -51,8 +55,10 @@
             </div>
         @else
             <div class="text-center py-5">
-                <i class="bi bi-images fs-1 text-muted"></i>
-                <p class="mt-3 text-muted">No photos yet for this event.</p>
+                <div style="background: var(--bg-cream); width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="bi bi-images fs-2" style="color: var(--text-muted-clr);"></i>
+                </div>
+                <p class="mt-2" style="color: var(--text-muted-clr);">No photos yet for this event.</p>
             </div>
         @endif
     </div>

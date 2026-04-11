@@ -44,8 +44,10 @@
                 </div>
             @empty
                 <div class="text-center py-5 w-100">
-                    <i class="bi bi-images fs-1" style="color: #555;"></i>
-                    <p class="mt-3" style="color: #aaa;">No images found in this category.</p>
+                    <div style="background: var(--bg-cream); width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                        <i class="bi bi-images fs-2" style="color: var(--text-muted-clr);"></i>
+                    </div>
+                    <p class="mt-2" style="color: var(--text-muted-clr);">No images found in this category.</p>
                 </div>
             @endforelse
         </div>
