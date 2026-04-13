@@ -9,7 +9,8 @@
     <div class="swiper heroSwiper">
         <div class="swiper-wrapper">
             @forelse($banners as $banner)
-                <div class="swiper-slide" style="background-image: url('{{ asset('storage/' . $banner->image) }}')">
+                <div class="swiper-slide">
+                    <div class="slide-bg" style="background-image: url('{{ asset('storage/' . $banner->image) }}')"></div>
                     <div class="hero-content">
                         @if($banner->title)
                             <h1>{{ $banner->title }}</h1>
@@ -25,7 +26,8 @@
                     </div>
                 </div>
             @empty
-                <div class="swiper-slide" style="background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-soft));">
+                <div class="swiper-slide">
+                    <div class="slide-bg" style="background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-soft));"></div>
                     <div class="hero-content">
                         <h1>{{ $siteSettings['site_name'] ?? 'BSK Photography' }}</h1>
                         <p>{{ $siteSettings['site_tagline'] ?? 'Capturing Moments That Last Forever' }}</p>
@@ -219,3 +221,45 @@
 </section>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const heroSwiper = new Swiper('.heroSwiper', {
+        loop: true,
+        speed: 1200,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        on: {
+            slideChangeTransitionStart: function() {
+                // Reset Ken Burns on all non-active slides
+                document.querySelectorAll('.heroSwiper .swiper-slide:not(.swiper-slide-active) .slide-bg').forEach(function(bg) {
+                    bg.style.transition = 'none';
+                    bg.style.transform = 'scale(1)';
+                });
+            },
+            slideChangeTransitionEnd: function() {
+                // Re-enable transition on active slide
+                const activeBg = document.querySelector('.heroSwiper .swiper-slide-active .slide-bg');
+                if (activeBg) {
+                    activeBg.style.transition = 'transform 7s ease-out';
+                    activeBg.style.transform = 'scale(1.12)';
+                }
+            }
+        }
+    });
+});
+</script>
+@endpush

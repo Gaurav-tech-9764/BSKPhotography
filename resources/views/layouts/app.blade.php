@@ -68,47 +68,82 @@
 
         /* ── Navbar ── */
         .navbar-custom {
-            background: rgba(250, 249, 246, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 16px 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 1px solid transparent;
+            background: var(--bg-white);
+            padding: 0;
+            border-bottom: none;
             z-index: 1030;
+            position: relative;
+            box-shadow: 0 2px 20px rgba(26, 26, 46, 0.08);
         }
-        .navbar-custom.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
+        .navbar-custom .container {
+            padding-top: 0;
+            padding-bottom: 0;
         }
         .navbar-custom .navbar-brand {
             font-family: var(--font-display);
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 400;
             color: var(--text-dark) !important;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 0;
         }
         .navbar-custom .navbar-brand img { border-radius: 6px; }
+        .navbar-custom .navbar-brand .brand-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-left: 2px;
+        }
         .navbar-custom .nav-link {
             color: var(--text-body) !important;
             font-family: var(--font-accent);
             font-weight: 500;
             letter-spacing: 0.3px;
-            font-size: 0.88rem;
-            padding: 8px 16px !important;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            padding: 22px 18px !important;
             transition: all 0.3s ease;
             position: relative;
-            border-radius: var(--radius-sm);
+            border-bottom: 3px solid transparent;
         }
         .navbar-custom .nav-link:hover {
             color: var(--accent) !important;
-            background: var(--accent-subtle);
+            border-bottom-color: var(--accent-light);
         }
         .navbar-custom .nav-link.active {
             color: var(--accent) !important;
-            background: var(--accent-subtle);
             font-weight: 600;
+            border-bottom-color: var(--accent);
+        }
+        .navbar-custom .nav-cta {
+            background: var(--accent);
+            color: #fff !important;
+            border-radius: var(--radius-sm);
+            padding: 10px 24px !important;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border-bottom: none;
+            margin-left: 8px;
+            text-transform: none;
+            align-self: center;
+        }
+        .navbar-custom .nav-cta:hover {
+            background: var(--accent-dark);
+            color: #fff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(196, 101, 58, 0.3);
+            border-bottom-color: transparent;
+        }
+        .navbar-custom .nav-cta.active {
+            background: var(--accent-dark);
+            color: #fff !important;
+            border-bottom-color: transparent;
         }
         .navbar-toggler { border: none; padding: 4px 8px; }
         .navbar-toggler:focus { box-shadow: none; }
@@ -118,15 +153,26 @@
         .hero-slider .swiper, .hero-slider .swiper-wrapper { height: 100%; }
         .hero-slider .swiper-slide {
             height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-slider .swiper-slide .slide-bg {
+            position: absolute;
+            inset: 0;
             background-size: cover;
             background-position: center;
-            position: relative;
+            transform: scale(1);
+            transition: transform 7s ease-out;
+        }
+        .hero-slider .swiper-slide-active .slide-bg {
+            transform: scale(1.12);
         }
         .hero-slider .swiper-slide::after {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(160deg, rgba(26,26,46,0.35) 0%, rgba(26,26,46,0.1) 40%, rgba(26,26,46,0.55) 80%, rgba(26,26,46,0.8) 100%);
+            z-index: 1;
         }
         .hero-content {
             position: absolute;
@@ -134,6 +180,28 @@
             left: 6%;
             z-index: 2;
             max-width: 700px;
+        }
+        .hero-content h1,
+        .hero-content p,
+        .hero-content .btn {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .swiper-slide-active .hero-content h1 {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+        .swiper-slide-active .hero-content p {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.6s;
+        }
+        .swiper-slide-active .hero-content .btn {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.9s;
         }
         .hero-content h1 {
             font-family: var(--font-display);
@@ -431,44 +499,38 @@
 
         /* ── Page Header ── */
         .page-header {
-            background: var(--bg-dark);
-            padding: 150px 0 60px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--bg-white);
         }
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(196,101,58,0.12) 0%, transparent 70%);
-            border-radius: 50%;
+        .page-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .page-header h1 {
             font-family: var(--font-display);
-            font-size: 3rem;
+            font-size: 1.5rem;
             font-weight: 400;
-            color: var(--text-light);
+            color: var(--text-dark);
+            margin: 0;
         }
-        .page-header .breadcrumb { justify-content: center; margin-top: 15px; }
+        .page-header .breadcrumb { margin: 0; }
         .page-header .breadcrumb-item a {
-            color: var(--accent-light);
+            color: var(--text-muted-clr);
             text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            font-size: 0.82rem;
             font-family: var(--font-accent);
+            transition: color 0.3s;
         }
+        .page-header .breadcrumb-item a:hover { color: var(--accent); }
         .page-header .breadcrumb-item.active {
-            color: rgba(250,249,246,0.5);
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 500;
             font-family: var(--font-accent);
         }
-        .page-header .breadcrumb-item + .breadcrumb-item::before { color: rgba(250,249,246,0.3); }
+        .page-header .breadcrumb-item + .breadcrumb-item::before { color: var(--border-med); }
 
         /* ── Image Protection ── */
         .protected-image {
@@ -591,13 +653,30 @@
         @media (max-width: 991px) {
             .navbar-custom .navbar-collapse {
                 background: var(--bg-white);
-                margin: 12px -16px -16px;
-                padding: 16px 20px;
+                margin: 0 -12px;
+                padding: 12px 20px 16px;
                 border-top: 1px solid var(--border-light);
-                border-radius: 0 0 var(--radius-md) var(--radius-md);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             }
             .navbar-custom .nav-link {
-                padding: 10px 12px !important;
+                padding: 10px 14px !important;
+                border-bottom: none;
+                border-radius: var(--radius-sm);
+                text-transform: none;
+            }
+            .navbar-custom .nav-link:hover {
+                background: var(--accent-subtle);
+                border-bottom-color: transparent;
+            }
+            .navbar-custom .nav-link.active {
+                background: var(--accent-subtle);
+                border-bottom-color: transparent;
+            }
+            .navbar-custom .nav-cta {
+                display: block;
+                margin: 8px 0 0;
+                text-align: center;
+                padding: 12px 24px !important;
             }
         }
 
@@ -613,8 +692,8 @@
             .section-title h2 { font-size: 2rem; }
             .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
             .custom-card .card-img-top { height: 200px; }
-            .page-header { padding: 120px 0 45px; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
-            .page-header h1 { font-size: 2rem; }
+            .page-header h1 { font-size: 1.3rem; }
+            .page-header .container { flex-direction: column; text-align: center; gap: 6px; }
             .filter-btn { padding: 8px 18px; font-size: 0.78rem; }
             .btn-accent, .btn-gold { padding: 12px 26px; font-size: 0.82rem; }
             .btn-outline-accent, .btn-outline-gold { padding: 10px 22px; font-size: 0.82rem; }
@@ -637,8 +716,8 @@
             .gallery-item { border-radius: var(--radius-sm); }
             .section { padding: 45px 0; }
             .section-title h2 { font-size: 1.6rem; }
-            .page-header { padding: 100px 0 35px; }
-            .page-header h1 { font-size: 1.6rem; }
+            .page-header { padding: 14px 0; }
+            .page-header h1 { font-size: 1.15rem; }
             .custom-card .card-img-top { height: 180px; }
             .custom-card .card-body { padding: 18px; }
             .navbar-custom .navbar-brand { font-size: 1.2rem; }
@@ -652,27 +731,27 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
                 @if(!empty($siteSettings['site_logo']))
-                    <img src="{{ asset('storage/' . $siteSettings['site_logo']) }}" alt="{{ $siteSettings['site_name'] ?? 'BSK Photography' }}" height="40">
+                    <img src="{{ asset('storage/' . $siteSettings['site_logo']) }}" alt="{{ $siteSettings['site_name'] ?? 'BSK Photography' }}" height="42">
                 @else
-                    {{ $siteSettings['site_name'] ?? 'BSK Photography' }}
+                    {{ $siteSettings['site_name'] ?? 'BSK Photography' }}<span class="brand-dot"></span>
                 @endif
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-list fs-4" style="color: var(--text-dark);"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-1">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('portfolio*') ? 'active' : '' }}" href="{{ route('portfolio') }}">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('services') ? 'active' : '' }}" href="{{ route('services') }}">Services</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('events*') ? 'active' : '' }}" href="{{ route('events') }}">Events</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link nav-cta {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}"><i class="bi bi-camera me-1"></i> Book Now</a></li>
                 </ul>
             </div>
         </div>
@@ -736,6 +815,7 @@
     <button class="scroll-top" id="scrollTop"><i class="bi bi-arrow-up"></i></button>
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -745,8 +825,6 @@
         lightbox.option({ resizeDuration: 200, wrapAround: true, albumLabel: 'Image %1 of %2' });
 
         window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar-custom');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
             const scrollBtn = document.getElementById('scrollTop');
             scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
             scrollBtn.style.alignItems = 'center';

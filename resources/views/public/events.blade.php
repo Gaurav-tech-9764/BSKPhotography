@@ -6,8 +6,8 @@
 
 <div class="page-header">
     <div class="container">
-        <h1 data-aos="fade-up">Events</h1>
-        <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <h1>Events</h1>
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active">Events</li>

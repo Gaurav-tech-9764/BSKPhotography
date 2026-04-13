@@ -6,7 +6,16 @@
 
 <div class="page-header">
     <div class="container">
-        <h1 data-aos="fade-up">{{ $event->title }}</h1>
+        <h1>{{ Str::limit($event->title, 40) }}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('events') }}">Events</a></li>
+                <li class="breadcrumb-item active">{{ Str::limit($event->title, 30) }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
         <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
