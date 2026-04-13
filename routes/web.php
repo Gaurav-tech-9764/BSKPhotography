@@ -40,9 +40,9 @@ Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.sho
 // =============================================
 // AUTH ROUTES
 // =============================================
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/adminloginBSK', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/adminloginBSK', [LoginController::class, 'login']);
+Route::post('/adminlogoutBSK', [LoginController::class, 'logout'])->name('logout');
 
 // =============================================
 // ADMIN ROUTES
