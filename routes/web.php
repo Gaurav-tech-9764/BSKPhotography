@@ -23,6 +23,17 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\SettingController;
 
 // =============================================
+// TEMPORARY: Create storage symlink on Hostinger (visit once, then remove this route)
+// =============================================
+Route::get('/create-storage-link', function () {
+    if (file_exists(public_path('storage'))) {
+        return 'Storage link already exists!';
+    }
+    symlink(storage_path('app/public'), public_path('storage'));
+    return 'Storage link created successfully!';
+});
+
+// =============================================
 // PUBLIC ROUTES
 // =============================================
 Route::get('/', [HomeController::class, 'index'])->name('home');
